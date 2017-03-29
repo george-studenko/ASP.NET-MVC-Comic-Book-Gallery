@@ -1,4 +1,5 @@
-﻿using ASP.NET_MVC_Comic_Book_Gallery.Models;
+﻿using ASP.NET_MVC_Comic_Book_Gallery.Data;
+using ASP.NET_MVC_Comic_Book_Gallery.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +10,18 @@ namespace ASP.NET_MVC_Comic_Book_Gallery.Controllers
 {
     public class ComicBooksController : Controller
     {
-        public ActionResult Detail() {
+        private ComicBookRepository repository = null;
 
-            var comicBook = new ComicBook()
+        public ComicBooksController()
+        {
+            repository = new ComicBookRepository(); 
+        }
+        public ActionResult Detail(int? id) {     
+            if(id == null)
             {
-                SeriesTitle = "The Amazing Spider-Man",
-                IssueNumber = 700,
-                DescriptionHTML = "<p>Final issue! Witness the final hours of Doctor Octopus' life and his one, last, great act of revenge! Even if Spider-Man survives... <strong>will Peter Parker?</strong></p>",
-                Artists = new Artist[]
-                {
-                    new Artist() { Name="Dan Slott" , Role="Script" },
-                    new Artist() { Name="Humberto Ramos" , Role="Pencils" },
-                    new Artist() { Name="Victor Olazaba" , Role="Inks" },
-                    new Artist() { Name="Edgar Delgado" , Role="Colors" },
-                    new Artist() { Name="Chris Eliopoulos" , Role="Letters" }
-                }
-        };
+                return HttpNotFound();
+            }
+            var comicBook = repository.GetComicBook(id.Value);
             return View(comicBook);
         }
 
