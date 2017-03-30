@@ -70,5 +70,11 @@ namespace ASP.NET_MVC_Comic_Book_Gallery.Data
             }
             return comicBook;
         }
+
+        public ComicBook[] GetComicBooks()
+        {
+            return _comicBooks;
+        }
+
     }
 }
