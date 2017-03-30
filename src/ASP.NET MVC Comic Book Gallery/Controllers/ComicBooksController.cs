@@ -16,6 +16,11 @@ namespace ASP.NET_MVC_Comic_Book_Gallery.Controllers
         {
             repository = new ComicBookRepository(); 
         }
+
+        public ActionResult Index() {
+            var comicBooks = repository.GetComicBooks();
+            return View(comicBooks);
+        }
         public ActionResult Detail(int? id) {     
             if(id == null)
             {
